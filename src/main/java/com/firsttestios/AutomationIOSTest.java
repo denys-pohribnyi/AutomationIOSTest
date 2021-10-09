@@ -4,7 +4,9 @@ package com.firsttestios;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -14,7 +16,7 @@ import java.net.URL;
 
 public class AutomationIOSTest {
 @Test
-    public void firstTest() throws MalformedURLException, InterruptedException {
+    public void firstTest() throws MalformedURLException {
     URL serverURL = new URL("http://0.0.0.0:4723/wd/hub");
     DesiredCapabilities capabilities = new DesiredCapabilities();
     capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
@@ -27,7 +29,10 @@ public class AutomationIOSTest {
 
     AppiumDriver driver = new IOSDriver(serverURL,capabilities);
     WebDriverWait wait = new WebDriverWait(driver,30);
-    Thread.sleep(5000);
     driver.get("https://github.com/");
+    WebElement searchField = driver.findElementByName("q");
+    searchField.sendKeys("Netflix");
+    WebElement clickSearch = driver.findElementByXPath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[3]/center/input[1]");
+    clickSearch.click();
 }
 }
